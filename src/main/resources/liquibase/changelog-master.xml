@@ -8,4 +8,7 @@
 
     <include file="liquibase/changelogs/TestSchema.xml"/>
 
+    <include file="liquibase/changelogs/TestSchema.xml"/>
+    <include file="liquibase/changelogs/TestTable.xml"/>
+
 </databaseChangeLog>
