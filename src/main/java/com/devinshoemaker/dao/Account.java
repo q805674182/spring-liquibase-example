@@ -3,12 +3,12 @@ package com.devinshoemaker.dao;
 import javax.persistence.*;
 
 /**
- * Data access object for the test table on the test schema.
+ * Data access object for the account table.
  *
  * @author Devin Shoemaker (devinshoe@gmail.com)
  */
 @Entity
-public class Test {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
