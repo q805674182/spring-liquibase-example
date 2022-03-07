@@ -3,6 +3,7 @@ package com.devinshoemaker.controller;
 import com.devinshoemaker.dao.Account;
 import com.devinshoemaker.repository.AccountRepository;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -97,7 +98,7 @@ public class AccountController {
      */
     @RequestMapping(value = "/common_account", method = RequestMethod.GET)
     public ResponseEntity most_common_name() {
-        SetMultimap<String, Long> account_map = HashMultimap.create();
+        SetMultimap<String, Long> account_map = LinkedHashMultimap.create();
         List<Account> account_list = (List<Account>) accountRepository.findAll();
         ArrayList<String> most_freq_name_list = new ArrayList<String>();
         int most_freq_count = 0;
@@ -130,8 +131,8 @@ public class AccountController {
      * Best Case: O(n) (uniform distribution)
      * Worst Case: O(n2) (all items in a single bucket)
      */
-    public List<String> top3_frequent(HashMap<String,Integer> frequencyMap) {
-        List<String>[] bucket = new List[frequencyMap.size() + 1];
+    public List<String> top3_frequent(HashMap<String,Integer> frequencyMap, int size) {
+        List<String>[] bucket = new List[size + 1];
         List<String> res = new ArrayList<>();
         for (String key : frequencyMap.keySet()) {
             int frequency = frequencyMap.get(key);
@@ -154,7 +155,6 @@ public class AccountController {
     /** Return the name for the top 3 most commonly used names **/
     @RequestMapping(value = "/common_account_3", method = RequestMethod.GET)
     public ResponseEntity most_common_names_top3() {
-        SetMultimap<String, Long> account_map = HashMultimap.create();
         HashMap<String, Integer> name_freq_map = new HashMap<String,Integer>();
         List<Account> account_list = (List<Account>) accountRepository.findAll();
         for(Account account : account_list){
@@ -163,15 +163,7 @@ public class AccountController {
         if(name_freq_map.size()<3){
             return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
         }
-        List<String> res = top3_frequent(name_freq_map);
+        List<String> res = top3_frequent(name_freq_map, account_list.size());
         return new ResponseEntity(res.toString(), HttpStatus.OK);
     }
-
-    /*public HashMap<String,Integer> sort_map(HashMap<String,Integer> freq_map){
-        Stream<Map.Entry<String,Integer>> sorted =
-                freq_map.entrySet()
-                        .stream()
-                        .sorted(Map.Entry.comparingByValue());
-        return (HashMap<String, Integer>) sorted;
-    }*/
 }

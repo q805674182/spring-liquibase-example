@@ -101,6 +101,11 @@
 			<version>30.0-jre</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>4.3.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -108,6 +113,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<propertyFile>src/main/resources/application.properties</propertyFile>
+					<propertyFileWillOverride>true</propertyFileWillOverride>
+					<changeLogFile>changelog-master.xml</changeLogFile>
+					<url>jdbc:postgresql://localhost:5432/complexica_test?currentSchema=public</url>
+					<username>complexica</username>
+					<password>test</password>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
