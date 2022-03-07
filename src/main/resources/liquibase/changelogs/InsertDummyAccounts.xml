@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+<!--    &lt;!&ndash; Insert 50 records with the same name into the account table &ndash;&gt;-->
+    <changeSet  author="Yan Han"  id="InsertRecords">
+        <sql dbms="!h2, oracle, mysql, postgresql"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Smith');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Cheems');
+            INSERT INTO account (name) values ('Michael');
+            INSERT INTO account (name) values ('Michael');
+            INSERT INTO account (name) values ('Michael');
+            INSERT INTO account (name) values ('Michael');
+            INSERT INTO account (name) values ('Michael');
+            INSERT INTO account (name) values ('Bob');
+            INSERT INTO account (name) values ('Bob');
+            INSERT INTO account (name) values ('Bob');
+            INSERT INTO account (name) values ('Bob');
+            INSERT INTO account (name) values ('Bob');
+            INSERT INTO account (name) values ('Mary');
+            INSERT INTO account (name) values ('Mary');
+            INSERT INTO account (name) values ('Mary');
+            <comment>What about Bob?</comment>
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
+
+
