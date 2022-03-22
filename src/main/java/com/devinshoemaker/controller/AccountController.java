@@ -157,13 +157,47 @@ public class AccountController {
     public ResponseEntity most_common_names_top3() {
         HashMap<String, Integer> name_freq_map = new HashMap<String,Integer>();
         List<Account> account_list = (List<Account>) accountRepository.findAll();
+        String most_freq_name = "";
+        int most_freq_count = 0;
+        int curr_count = 0;
+        List<String> res = new ArrayList<>();
+
         for(Account account : account_list){
-            name_freq_map.put(account.getName(),name_freq_map.getOrDefault(account.getName(), 0) + 1);
+            name_freq_map.put(account.getName(), name_freq_map.getOrDefault(account.getName(), 0) + 1);
         }
+
         if(name_freq_map.size()<3){
             return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
         }
-        List<String> res = top3_frequent(name_freq_map, account_list.size());
+
+        for(int i=0; i<3; i++){
+            most_freq_count = 0;
+            for(Map.Entry<String,Integer> account : name_freq_map.entrySet()){
+                curr_count = account.getValue();
+                if(most_freq_count < curr_count){
+                    most_freq_count = curr_count;
+                    most_freq_name = account.getKey();
+                }
+            }
+            res.add(most_freq_name);
+            name_freq_map.remove(most_freq_name);
+        }
+
         return new ResponseEntity(res.toString(), HttpStatus.OK);
     }
+
+//    /** Return the name for the top 3 most commonly used names **/
+//    @RequestMapping(value = "/common_account_3", method = RequestMethod.GET)
+//    public ResponseEntity most_common_names_top3() {
+//        HashMap<String, Integer> name_freq_map = new HashMap<String,Integer>();
+//        List<Account> account_list = (List<Account>) accountRepository.findAll();
+//        for(Account account : account_list){
+//            name_freq_map.put(account.getName(),name_freq_map.getOrDefault(account.getName(), 0) + 1);
+//        }
+//        if(name_freq_map.size()<3){
+//            return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+//        }
+//        List<String> res = top3_frequent(name_freq_map, account_list.size());
+//        return new ResponseEntity(res.toString(), HttpStatus.OK);
+//    }
 }
